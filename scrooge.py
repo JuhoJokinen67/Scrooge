@@ -106,18 +106,16 @@ def main():
 	seconds1,seconds2 = getSecsSinceEpoch(startDate, endDate)
 	
 	prices,volumes = getDataFromAPI(seconds1, seconds2)
-	
-	date,vol = highestVolumeDay(volumes)
 
-	print("Longest bearish trend is", longestBearishTrend(prices))		
-	
-	print("The day with the highest volume is", msecsToString(date), "and its volume was", vol)
-	
+	bearish = longestBearishTrend(prices)
+	date,vol = highestVolumeDay(volumes)
 	buyDate,sellDate = bestDayToBuy(prices)
+	
+	print("Longest bearish trend is", bearish, "days")		
+	print("The day with the highest volume is", msecsToString(date), "and its volume was", vol)
 	if buyDate == 0 and sellDate == 0:
 		print("Buying not recommended within this time frame")
 	else:
 		print("Buy on", msecsToString(buyDate), "sell on", msecsToString(sellDate))
-		
 		
 main()
