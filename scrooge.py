@@ -16,9 +16,9 @@ def separateData(data):
 		price = data['prices'][i][1]
 		volume = data['total_volumes'][i][1]
 		
-		if date >= (previousTime + 24*60*60*1000): # Data will always be in either 1-day, 1-hour ot 5-minute intervals
-			prices[date] = price                   # and the first data point will be exactly midnight UTC, so this
-			volumes[date] = volume                 # should lead to getting only 1 data point each day at exactly midnight
+		if date >= (previousTime + 24*60*60*1000): # Data will always be in either 1-day, 1-hour or 5-minute intervals
+			prices[date] = price               # and the first data point will be exactly midnight UTC, so this
+			volumes[date] = volume             # should lead to getting only 1 data point each day at exactly midnight
 			previousTime = date
 	
 	return prices,volumes
@@ -32,8 +32,8 @@ def getDataFromAPI(startDate, endDate):
 		exit(0)
 	
 	data = r.json() # data in format "prices"=[time,price],[time,price]...
-					#                "volumes"=[time,volume],[time,volume]...
-					# which is kind of annoying, need to split it into maps with separateData
+			#                "volumes"=[time,volume],[time,volume]...
+			# which is kind of annoying, need to split it into maps with separateData
 	
 	return separateData(data)
 	
@@ -84,7 +84,7 @@ def bestDayToBuy(prices):
 	currentLowest = 1000000000
 	currentLowestDate = 0
 	
-	# can't just look for lowest and highest here and take the difference at the end, 
+	# Can't just look for lowest and highest here and take the difference at the end, 
 	# need to check for it every day
 	for date in prices: 
 		price = prices[date]
